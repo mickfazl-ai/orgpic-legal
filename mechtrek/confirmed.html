@@ -1,0 +1,24 @@
+<!doctype html><html lang="en-AU"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>MechTrek — Email confirmed</title>
+<style>
+:root{--bg:#ffffff;--ink:#1b1e22;--muted:#5f656c}
+@media (prefers-color-scheme:dark){:root{--bg:#121417;--ink:#eceef0;--muted:#a2a8ae}}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:480px;margin:0 auto;padding:64px 20px;text-align:center}img{width:80px;height:80px;border-radius:20px}
+h1{font-size:26px;margin:18px 0 8px}p{color:var(--muted)}
+</style></head><body><main>
+<img src="icon.png" alt="MechTrek icon">
+<h1 id="title">Email confirmed</h1>
+<p id="msg">You're all set. Go back to the MechTrek app and sign in with your email and password.</p>
+<script>
+  // Supabase puts errors in the URL fragment, e.g. #error_description=Email+link+is+invalid+or+has+expired
+  var p = new URLSearchParams((location.hash || '').replace(/^#/, '') + '&' + (location.search || '').replace(/^\?/, ''));
+  var err = p.get('error_description');
+  if (err) {
+    document.getElementById('title').textContent = 'That link didn’t work';
+    document.getElementById('msg').textContent = err.replace(/\+/g, ' ') + '. Open MechTrek and sign in — if your email still isn’t confirmed, create the account again to get a new link.';
+  }
+  // Don't leave tokens sitting in the address bar.
+  if (location.hash) history.replaceState(null, '', location.pathname);
+</script>
+</main></body></html>
